@@ -2,7 +2,7 @@
 
 Catálogo de produtos feito com HTML, CSS e JavaScript puro, com dados da API pública [DummyJSON](https://dummyjson.com/docs/products).
 
-- **Versão:** em preparação
+- **Versão:** 0.1.0 ([histórico](CHANGELOG.md))
 - **Link do projeto:** a preencher
 - **Equipe:** a preencher
 

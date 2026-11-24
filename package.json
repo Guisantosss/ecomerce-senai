@@ -1,0 +1,9 @@
+{
+  "name": "e-comerce",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Catálogo de produtos com busca, feito com HTML, CSS e JavaScript.",
+  "scripts": {
+    "start": "python -m http.server 5500"
+  }
+}
