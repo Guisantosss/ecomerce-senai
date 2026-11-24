@@ -5,12 +5,13 @@ Git-flow é um combinado sobre para que serve cada branch (linha de trabalho).
 | Branch | Para que serve | Sai de | Volta para |
 |---|---|---|---|
 | `main` | Versões prontas, cada uma com sua tag | | |
+| `gh-pages` | Cópia da `main` que o GitHub Pages mostra no site | `main` | |
 | `develop` | Próxima versão em construção | `main` | |
 | `feature/nome` | Uma tarefa nova | `develop` | `develop` |
 | `release/x.y.z` | Ajustes finais de uma versão | `develop` | `main` e `develop` |
 | `hotfix/x.y.z` | Correção urgente do que já foi lançado | `main` | `main` e `develop` |
 
-Ninguém faz commit direto na `main` nem na `develop`.
+Ninguém faz commit direto na `main`, na `develop` nem na `gh-pages`.
 
 ## Fazer uma tarefa
 
@@ -27,20 +28,23 @@ Depois abra um pull request (pedido de revisão) de `feature/nome-da-tarefa` par
 
 ## Lançar uma versão
 
-1. Crie a branch: `git switch develop` e `git switch -c release/0.3.0`.
+1. Crie a branch: `git switch develop` e `git switch -c release/0.4.0`.
 2. Atualize o número em `package.json`, `README.md` e no rodapé de `index.html`. Anote as mudanças no `CHANGELOG.md`.
 3. Rode `npm test` e faça o commit.
 4. Junte nas duas branches e crie a tag:
 
 ```
 git switch main
-git merge --no-ff release/0.3.0
-git tag -a v0.3.0 -m "Versão 0.3.0"
+git merge --no-ff release/0.4.0
+git tag -a v0.4.0 -m "Versão 0.4.0"
 git switch develop
-git merge --no-ff release/0.3.0
-git branch -d release/0.3.0
+git merge --no-ff release/0.4.0
+git branch -d release/0.4.0
 git push origin main develop --follow-tags
+git push origin main:gh-pages
 ```
+
+A última linha publica a versão no site. Espere de 1 a 3 minutos.
 
 ## Número da versão
 

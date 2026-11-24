@@ -28,7 +28,7 @@
     "womens-shoes": "Calçados femininos",
     "womens-watches": "Relógios femininos",
   };
-  const SUGESTOES = ["phone", "laptop", "perfume", "watch"];
+  const SUGESTOES = ["celular", "notebook", "perfume", "relógio"];
   const ESTOQUE_BAIXO = 10;
 
   const tela = {
@@ -165,7 +165,7 @@
       tela.situacao.textContent = "Nenhum produto encontrado.";
       mostrarAviso(
         "Nada na prateleira com esse nome",
-        "Os produtos estão cadastrados em inglês. Tente uma destas buscas:",
+        "Os produtos estão cadastrados em inglês, e a busca entende só algumas palavras em português. Tente uma destas:",
         SUGESTOES.map((termo) => ({
           texto: termo,
           fazer: () => {
@@ -197,9 +197,10 @@
 
     mostrarCarregando();
     try {
+      const alvo = termo ? Traducao.interpretar(termo) : { categoria };
       let resultado;
-      if (termo) resultado = await Api.buscar(termo, pedido.signal);
-      else if (categoria) resultado = await Api.porCategoria(categoria, pedido.signal);
+      if (alvo.termo) resultado = await Api.buscar(alvo.termo, pedido.signal);
+      else if (alvo.categoria) resultado = await Api.porCategoria(alvo.categoria, pedido.signal);
       else resultado = await Api.listar(pedido.signal);
       if (pedido === pedidoAtual) mostrarProdutos(resultado);
     } catch (erro) {
