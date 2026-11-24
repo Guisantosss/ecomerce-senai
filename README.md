@@ -1,0 +1,17 @@
+# Gôndola
+
+Catálogo de produtos feito com HTML, CSS e JavaScript puro, com dados da API pública [DummyJSON](https://dummyjson.com/docs/products).
+
+- **Versão:** 0.1.0 ([histórico](CHANGELOG.md))
+- **Link do projeto:** a preencher
+- **Equipe:** a preencher
+
+## Planejado
+
+- Cards de produtos, com limite de 20.
+- Busca por nome e por categoria.
+- Consulta dos detalhes de um produto.
+
+## Como contribuir
+
+O projeto usa git-flow. Leia [docs/git-flow.md](docs/git-flow.md) antes do primeiro commit.
