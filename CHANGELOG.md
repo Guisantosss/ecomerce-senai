@@ -1,5 +1,9 @@
 # Histórico de versões
 
+## 0.4.1 (24/11/2026)
+
+- Correção: o guia do git-flow usava de exemplo uma versão que já existe.
+
 ## 0.4.0 (24/11/2026)
 
 - Novo visual: vitrine de abertura, uma cor por grupo de categorias e cards maiores.
