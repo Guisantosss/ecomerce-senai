@@ -1,0 +1,297 @@
+/* Ideia do layout: cada fileira de cards é uma prateleira de mercado.
+   O produto fica em cima do trilho verde e a etiqueta de preço pendurada embaixo. */
+
+:root {
+  --parede: #dce6e4;
+  --trilho: #0b5d5a;
+  --trilho-claro: #2f8f87;
+  --tinta: #10312f;
+  --tinta-suave: #45605e;
+  --etiqueta: #ffd23f;
+  --papel: #ffffff;
+  --oferta: #b80f2a;
+  --borda: 16px;
+  --trilho-altura: 12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+/* Reservam espaço antes de os cards chegarem, para a página não pular. */
+html { scrollbar-gutter: stable; }
+main { min-height: 100vh; }
+
+body {
+  margin: 0;
+  background: var(--parede);
+  color: var(--tinta);
+  font: 400 1rem/1.5 Archivo, "Segoe UI", Arial, sans-serif;
+}
+
+.largura {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: var(--borda);
+}
+
+.so-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--papel);
+}
+
+/* Topo e busca */
+
+.topo { background: var(--trilho); color: var(--papel); }
+
+.topo-grade {
+  display: grid;
+  gap: 20px;
+  padding-block: 24px 28px;
+}
+
+.topo h1 {
+  margin: 0;
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  font-weight: 850;
+  font-stretch: 125%;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.busca { display: grid; gap: 12px; }
+.campo { display: grid; gap: 4px; min-width: 0; }
+.campo label { font-size: 0.875rem; font-weight: 600; }
+
+.campo input,
+.campo select {
+  width: 100%;
+  height: 48px;
+  padding-inline: 14px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--papel);
+  color: var(--tinta);
+  font: inherit;
+}
+
+.campo input::placeholder { color: var(--tinta-suave); }
+
+.botao {
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 2px solid var(--trilho);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--trilho);
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.botao:hover { background: var(--trilho); color: var(--papel); }
+
+.botao-busca {
+  height: 48px;
+  border-color: var(--etiqueta);
+  background: var(--etiqueta);
+  color: var(--tinta);
+}
+
+.botao-busca:hover { border-color: var(--papel); background: var(--papel); color: var(--tinta); }
+
+.situacao { margin: 24px 0 8px; font-weight: 600; }
+
+/* Prateleira e cards */
+
+.prateleira {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  row-gap: 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card { display: flex; flex-direction: column; min-width: 0; }
+
+.foto {
+  display: grid;
+  place-items: end center;
+  height: 168px;
+  padding-inline: 10px;
+}
+
+.foto img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+  object-position: bottom;
+}
+
+/* As fotos da API têm uma margem transparente embaixo; isto encosta o produto no trilho. */
+.card .foto img { transform: translateY(8px); }
+
+.sem-foto { align-self: center; color: var(--tinta-suave); }
+
+/* O trilho ocupa a coluna inteira, então emenda com o do card vizinho. */
+.card::before {
+  content: "";
+  order: 1;
+  height: var(--trilho-altura);
+  background: linear-gradient(var(--trilho-claro) 3px, var(--trilho) 3px);
+}
+
+.etiqueta {
+  order: 2;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-inline: 6px;
+  border-radius: 0 0 8px 8px;
+  background: var(--papel);
+  overflow: hidden;
+  container-type: inline-size;
+}
+
+.preco {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  align-items: center;
+  gap: 2px 8px;
+  min-height: 84px;
+  margin: 0;
+  padding: 8px 12px 10px;
+  background: var(--etiqueta);
+  color: var(--tinta);
+  font-stretch: 75%;
+}
+
+.preco-antes { font-size: 0.9375rem; line-height: 1.2; white-space: nowrap; }
+
+.desconto {
+  margin-left: auto;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--oferta);
+  color: var(--papel);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.preco-agora {
+  display: flex;
+  flex-basis: 100%;
+  align-items: flex-start;
+  font-size: 2.625rem;
+  font-weight: 850;
+  font-stretch: 68%;
+  line-height: 0.95;
+  white-space: nowrap;
+}
+
+/* Preço de quatro dígitos ou mais encolhe conforme a largura da etiqueta (cqi = % da etiqueta). */
+.preco-longo .preco-agora { font-size: clamp(1.5rem, 20cqi, 2.625rem); }
+
+.moeda { padding-top: 0.2em; font-size: max(0.75rem, 0.36em); white-space: pre; }
+.inteiro { letter-spacing: -0.02em; }
+.centavos { padding-top: 0.1em; font-size: 0.48em; }
+
+.etiqueta-corpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 12px;
+}
+
+.nome {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.marca, .nota, .estoque { margin: 0; font-size: 0.875rem; color: var(--tinta-suave); }
+.marca { margin-bottom: auto; padding-bottom: 8px; }
+.estoque-baixo { color: var(--oferta); font-weight: 650; }
+.etiqueta-corpo .botao { margin-top: 12px; padding-inline: 4px; font-size: 0.9375rem; }
+
+.card-vazio .etiqueta { min-height: 280px; }
+.card-vazio .etiqueta::before { content: ""; height: 84px; background: var(--etiqueta); opacity: 0.45; }
+
+/* Sem resultado ou erro */
+
+.aviso {
+  max-width: 560px;
+  margin-top: 16px;
+  padding: 24px;
+  border-top: var(--trilho-altura) solid var(--trilho);
+  border-radius: 0 0 8px 8px;
+  background: var(--papel);
+}
+
+.aviso h2 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 800; line-height: 1.15; }
+.aviso p { margin: 0 0 16px; }
+.aviso-acoes { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Detalhes */
+
+.detalhes {
+  width: min(820px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 20px;
+  border: 0;
+  border-top: var(--trilho-altura) solid var(--trilho);
+  border-radius: 0 0 10px 10px;
+  background: var(--papel);
+  color: var(--tinta);
+}
+
+.detalhes::backdrop { background: rgb(16 49 47 / 0.7); }
+.detalhes > form { display: flex; justify-content: flex-end; }
+.detalhes-corpo { display: grid; gap: 20px; margin-top: 12px; }
+.detalhes .foto { height: 240px; padding: 12px; border-radius: 8px; background: var(--parede); }
+.detalhes .foto img { object-position: center; }
+.detalhes h2 { margin: 0 0 12px; font-size: 1.625rem; font-weight: 800; line-height: 1.15; }
+.detalhes .preco { border-radius: 8px; }
+.descricao { margin: 16px 0; }
+.carregando { margin: 0; padding-block: 24px; }
+
+.ficha { display: grid; gap: 6px; margin: 0; }
+.ficha > div { display: flex; justify-content: space-between; gap: 16px; }
+.ficha dt { color: var(--tinta-suave); }
+.ficha dd { margin: 0; font-weight: 600; text-align: right; overflow-wrap: anywhere; }
+
+/* Rodapé */
+
+.rodape { margin-top: 56px; padding-block: 24px; background: var(--tinta); color: var(--papel); font-size: 0.9375rem; }
+.rodape p { margin: 0; max-width: 70ch; }
+.rodape a { color: var(--etiqueta); }
+
+@media (min-width: 720px) {
+  :root { --borda: 24px; }
+  .prateleira { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .busca { grid-template-columns: 1fr 240px auto; align-items: end; }
+  .detalhes-corpo { grid-template-columns: 1fr 1.1fr; }
+  .detalhes .foto { height: 340px; }
+}
+
+@media (min-width: 1100px) {
+  .prateleira { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .topo-grade { grid-template-columns: auto 1fr; align-items: end; gap: 48px; }
+  .card .foto { height: 190px; }
+}
