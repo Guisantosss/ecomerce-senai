@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gôndola: catálogo de produtos</title>
+  <meta name="description" content="Catálogo com busca por nome e categoria, feito com a API DummyJSON.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b5d5a'/%3E%3Cpath d='M6 10h20v12H6z' fill='%23ffd23f'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="largura topo-grade">
+      <h1>Gôndola</h1>
+      <form id="busca" class="busca" role="search">
+        <div class="campo">
+          <label for="campo-busca">Produto</label>
+          <input id="campo-busca" type="search" placeholder="Ex.: phone, perfume, watch" autocomplete="off">
+        </div>
+        <div class="campo">
+          <label for="categoria">Categoria</label>
+          <select id="categoria">
+            <option value="">Todas</option>
+          </select>
+        </div>
+        <button class="botao botao-busca" type="submit">Buscar</button>
+      </form>
+    </div>
+  </header>
+
+  <main class="largura">
+    <p id="situacao" class="situacao" role="status"></p>
+    <ul id="prateleira" class="prateleira"></ul>
+    <section id="aviso" class="aviso" hidden></section>
+    <noscript><p class="aviso">Ative o JavaScript do navegador para ver os produtos.</p></noscript>
+  </main>
+
+  <footer class="rodape">
+    <div class="largura">
+      <p>Projeto de estudo. Produtos fictícios da API <a href="https://dummyjson.com/docs/products">DummyJSON</a>, com preços em dólar. Versão 0.2.0.</p>
+    </div>
+  </footer>
+
+  <dialog id="detalhes" class="detalhes" aria-label="Detalhes do produto">
+    <form method="dialog"><button class="botao">Fechar</button></form>
+    <div id="detalhes-corpo" class="detalhes-corpo"></div>
+  </dialog>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
