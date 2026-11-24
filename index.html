@@ -4,53 +4,111 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gôndola: catálogo de produtos</title>
-  <meta name="description" content="Catálogo com busca por nome e categoria, feito com a API DummyJSON.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b5d5a'/%3E%3Cpath d='M6 10h20v12H6z' fill='%23ffd23f'/%3E%3C/svg%3E">
+  <meta name="description" content="Catálogo de produtos com busca por nome e por categoria.">
+  <link rel="icon" href="img/icone.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap">
   <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
-  <header class="topo">
-    <div class="largura topo-grade">
-      <h1>Gôndola</h1>
-      <form id="busca" class="busca" role="search">
-        <div class="campo">
-          <label for="campo-busca">Produto</label>
-          <input id="campo-busca" type="search" placeholder="Ex.: celular, perfume, relógio" autocomplete="off">
-        </div>
-        <div class="campo">
-          <label for="categoria">Categoria</label>
-          <select id="categoria">
-            <option value="">Todas</option>
-          </select>
-        </div>
-        <button class="botao botao-busca" type="submit">Buscar</button>
-      </form>
+  <header class="vitrine">
+    <div class="largura vitrine-grade">
+      <div class="chamada">
+        <p class="logo">Gôndola</p>
+        <h1>Do batom ao sofá, tudo na mesma prateleira.</h1>
+        <form id="busca" class="busca" role="search" autocomplete="off">
+          <label class="so-leitor" for="termo">Buscar produto</label>
+          <input id="termo" name="termo" type="search" placeholder="Celular, perfume, relógio">
+          <button type="submit">Buscar</button>
+        </form>
+      </div>
+      <div class="nichos" aria-hidden="true">
+        <label class="nicho" for="cat-beauty" data-cor="rosa"><img src="img/batom.webp" alt="" width="226" height="440"></label>
+        <label class="nicho" for="cat-furniture" data-cor="mel"><img src="img/cadeira.webp" alt="" width="294" height="440"></label>
+        <label class="nicho" for="cat-groceries" data-cor="verde"><img src="img/suco.webp" alt="" width="145" height="440"></label>
+        <label class="nicho" for="cat-mobile-accessories" data-cor="ceu"><img src="img/fone.webp" alt="" width="392" height="440"></label>
+      </div>
     </div>
   </header>
 
   <main class="largura">
+    <fieldset id="categorias" class="categorias">
+      <legend class="so-leitor">Categoria</legend>
+      <label class="categoria"><input id="cat-tudo" type="radio" name="categoria" value="" form="busca" checked><span>Tudo</span></label>
+    </fieldset>
+
     <p id="situacao" class="situacao" role="status"></p>
     <ul id="prateleira" class="prateleira"></ul>
-    <section id="aviso" class="aviso" hidden></section>
-    <noscript><p class="aviso">Ative o JavaScript do navegador para ver os produtos.</p></noscript>
+
+    <section id="vazio" class="aviso" hidden>
+      <h2>Nada na prateleira com esse nome</h2>
+      <p>Os produtos estão em inglês, e a busca entende só algumas palavras em português. Tente uma destas:</p>
+      <button type="button" class="botao">celular</button>
+      <button type="button" class="botao">notebook</button>
+      <button type="button" class="botao">perfume</button>
+      <button type="button" class="botao">relógio</button>
+    </section>
+
+    <section id="falha" class="aviso" hidden>
+      <h2>Os produtos não carregaram</h2>
+      <p>Confira sua internet e tente de novo.</p>
+      <button type="button" class="botao">Tentar de novo</button>
+    </section>
   </main>
 
   <footer class="rodape">
     <div class="largura">
-      <p>Projeto de estudo. Produtos fictícios da API <a href="https://dummyjson.com/docs/products">DummyJSON</a>, com preços em dólar. Versão 0.3.0.</p>
+      <p class="logo">Gôndola</p>
+      <p>Projeto de estudo de G Santos e Amaral. Produtos fictícios da <a href="https://dummyjson.com/docs/products">DummyJSON</a>, com preços em dólar.</p>
+      <p><a href="https://github.com/Guisantosss/ecomerce-senai">Código no GitHub</a>, versão 0.3.0</p>
     </div>
   </footer>
 
-  <dialog id="detalhes" class="detalhes" aria-label="Detalhes do produto">
-    <form method="dialog"><button class="botao">Fechar</button></form>
-    <div id="detalhes-corpo" class="detalhes-corpo"></div>
+  <dialog id="detalhes" class="detalhes" aria-label="Detalhes do produto" closedby="any">
+    <form method="dialog"><button class="fechar" aria-label="Fechar">×</button></form>
+    <div id="detalhes-corpo"></div>
   </dialog>
 
+  <template id="modelo-categoria">
+    <label class="categoria"><input type="radio" name="categoria" form="busca"><span></span></label>
+  </template>
+
+  <template id="modelo-vazio"><li class="card-vazio"></li></template>
+
+  <template id="modelo-card">
+    <li class="card">
+      <div class="palco"><img alt="" width="300" height="300"><span class="desconto"></span></div>
+      <h2 class="nome"></h2>
+      <p class="marca"></p>
+      <p class="preco">
+        <span class="antes"><span class="so-leitor">De </span><s></s><span class="so-leitor"> por </span></span>
+        <strong class="agora"></strong>
+      </p>
+      <p class="selos"><span class="nota"></span><span class="estoque"></span></p>
+      <button type="button" class="botao">Ver detalhes</button>
+    </li>
+  </template>
+
+  <template id="modelo-detalhes">
+    <article class="ficha">
+      <div class="palco"><img alt="" width="1000" height="1000"><span class="desconto"></span></div>
+      <div class="ficha-texto">
+        <p class="marca"></p>
+        <h2 class="nome"></h2>
+        <p class="preco">
+          <span class="antes"><span class="so-leitor">De </span><s></s><span class="so-leitor"> por </span></span>
+          <strong class="agora"></strong>
+        </p>
+        <p class="descricao" lang="en"></p>
+        <p class="selos"><span class="nota"></span><span class="estoque"></span></p>
+        <p class="codigo"></p>
+      </div>
+    </article>
+  </template>
+
   <script src="js/api.js"></script>
-  <script src="js/traducao.js"></script>
+  <script src="js/dados.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 - **API:** https://dummyjson.com/products
 - **Data:** 24/11/2026
 - **Como repetir:** `npm test`
-- **Resultado:** 14 testes, 14 aprovados
+- **Resultado:** 13 testes, 13 aprovados
 
 ## Por que a DummyJSON
 
@@ -21,7 +21,7 @@
 | Busca por nome | `/products/search?q=phone&limit=20` |
 | Por categoria | `/products/category/laptops?limit=20` |
 | Por código | `/products/1` |
-| Lista de categorias | `/products/category-list` |
+| Lista de categorias (só no teste) | `/products/category-list` |
 
 ## Casos testados
 
@@ -29,17 +29,16 @@
 |---|---|---|
 | Lista inicial | 20 produtos, com os campos do card | Aprovado |
 | Buscar "phone" | Mais de 20 encontrados, 20 mostrados | Aprovado |
-| Buscar nome que não existe | Lista vazia | Aprovado |
+| Buscar nome que não existe, com espaço e símbolo | Lista vazia | Aprovado |
 | Categoria "laptops" | Só notebooks | Aprovado |
-| Código 1 | Produto 1 | Aprovado |
+| Código 1 | Produto 1, com os campos dos detalhes | Aprovado |
 | Código 99999 | Erro 404 | Aprovado |
-| Lista de categorias | Contém "beauty" | Aprovado |
+| Categorias da tela | Iguais às da API | Aprovado |
+| Cada palavra em português | Encontra ao menos um produto | Aprovado |
 | API manda 30 produtos | Site usa 20 | Aprovado |
 | Sem internet | Mensagem de erro clara | Aprovado |
-| Busca com espaço e símbolo | Endereço montado certo | Aprovado |
-| Preço com desconto | Valor final correto | Aprovado |
+| API lenta demais | Mensagem própria | Aprovado |
 | Acento, maiúscula e plural | Palavra reconhecida | Aprovado |
 | Palavra fora da lista | Vai para a API como foi digitada | Aprovado |
-| Cada palavra em português | Encontra ao menos um produto | Aprovado |
 
-Os sete primeiros e o último chamam a API de verdade. Os outros seis rodam sem internet.
+Os oito primeiros chamam a API de verdade. Os outros cinco rodam sem internet.
