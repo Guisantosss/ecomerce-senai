@@ -1,5 +1,9 @@
 # Histórico de versões
 
+## 0.2.1 (24/11/2026)
+
+- Link do projeto no README.
+
 ## 0.2.0 (24/11/2026)
 
 Epic 02:
