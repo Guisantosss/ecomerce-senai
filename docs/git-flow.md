@@ -5,12 +5,13 @@ Git-flow é um combinado sobre para que serve cada branch (linha de trabalho).
 | Branch | Para que serve | Sai de | Volta para |
 |---|---|---|---|
 | `main` | Versões prontas, cada uma com sua tag | | |
+| `gh-pages` | Cópia da `main` que o GitHub Pages mostra no site | `main` | |
 | `develop` | Próxima versão em construção | `main` | |
 | `feature/nome` | Uma tarefa nova | `develop` | `develop` |
 | `release/x.y.z` | Ajustes finais de uma versão | `develop` | `main` e `develop` |
 | `hotfix/x.y.z` | Correção urgente do que já foi lançado | `main` | `main` e `develop` |
 
-Ninguém faz commit direto na `main` nem na `develop`.
+Ninguém faz commit direto na `main`, na `develop` nem na `gh-pages`.
 
 ## Fazer uma tarefa
 
@@ -40,7 +41,10 @@ git switch develop
 git merge --no-ff release/0.3.0
 git branch -d release/0.3.0
 git push origin main develop --follow-tags
+git push origin main:gh-pages
 ```
+
+A última linha publica a versão no site. Espere de 1 a 3 minutos.
 
 ## Número da versão
 
