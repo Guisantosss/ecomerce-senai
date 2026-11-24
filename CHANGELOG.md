@@ -1,5 +1,11 @@
 # Histórico de versões
 
+## 0.4.0 (24/11/2026)
+
+- Novo visual: vitrine de abertura, uma cor por grupo de categorias e cards maiores.
+- Filtro de categorias com botões, no lugar da lista.
+- Código simplificado.
+
 ## 0.3.0 (24/11/2026)
 
 - Site publicado no GitHub Pages.
