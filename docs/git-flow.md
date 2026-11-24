@@ -28,18 +28,18 @@ Depois abra um pull request (pedido de revisão) de `feature/nome-da-tarefa` par
 
 ## Lançar uma versão
 
-1. Crie a branch: `git switch develop` e `git switch -c release/0.4.0`.
+1. Troque `x.y.z` pelo número da versão e crie a branch: `git switch develop` e `git switch -c release/x.y.z`.
 2. Atualize o número em `package.json`, `README.md` e no rodapé de `index.html`. Anote as mudanças no `CHANGELOG.md`.
 3. Rode `npm test` e faça o commit.
 4. Junte nas duas branches e crie a tag:
 
 ```
 git switch main
-git merge --no-ff release/0.4.0
-git tag -a v0.4.0 -m "Versão 0.4.0"
+git merge --no-ff release/x.y.z
+git tag -a vx.y.z -m "Versão x.y.z"
 git switch develop
-git merge --no-ff release/0.4.0
-git branch -d release/0.4.0
+git merge --no-ff release/x.y.z
+git branch -d release/x.y.z
 git push origin main develop --follow-tags
 git push origin main:gh-pages
 ```

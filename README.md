@@ -4,7 +4,7 @@ Catálogo de produtos feito com HTML, CSS e JavaScript puro. Os dados vêm da AP
 
 ![Tela do catálogo com os cards de produtos](docs/tela.png)
 
-- **Versão:** 0.4.0 ([histórico](CHANGELOG.md))
+- **Versão:** 0.4.1 ([histórico](CHANGELOG.md))
 - **Site:** https://guisantosss.github.io/ecomerce-senai/
 - **Link do projeto:** https://github.com/Guisantosss/ecomerce-senai
 - **Equipe:** G Santos e Amaral
