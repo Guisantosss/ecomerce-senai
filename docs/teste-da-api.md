@@ -3,7 +3,7 @@
 - **API:** https://dummyjson.com/products
 - **Data:** 24/11/2026
 - **Como repetir:** `npm test`
-- **Resultado:** 11 testes, 11 aprovados
+- **Resultado:** 14 testes, 14 aprovados
 
 ## Por que a DummyJSON
 
@@ -38,5 +38,8 @@
 | Sem internet | Mensagem de erro clara | Aprovado |
 | Busca com espaço e símbolo | Endereço montado certo | Aprovado |
 | Preço com desconto | Valor final correto | Aprovado |
+| Acento, maiúscula e plural | Palavra reconhecida | Aprovado |
+| Palavra fora da lista | Vai para a API como foi digitada | Aprovado |
+| Cada palavra em português | Encontra ao menos um produto | Aprovado |
 
-Os sete primeiros chamam a API de verdade. Os quatro últimos rodam sem internet.
+Os sete primeiros e o último chamam a API de verdade. Os outros seis rodam sem internet.
