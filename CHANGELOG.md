@@ -1,5 +1,12 @@
 # Histórico de versões
 
+## 0.3.0 (24/11/2026)
+
+- Site publicado no GitHub Pages.
+- Busca entende palavras comuns em português.
+- Correção: a sugestão "perfume" não encontrava produtos.
+- Nomes da equipe e link do site no README.
+
 ## 0.2.1 (24/11/2026)
 
 - Link do projeto no README.
